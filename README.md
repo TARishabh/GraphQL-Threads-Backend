@@ -13,3 +13,4 @@ yarn add @types/express -D
 yarn add tsc-watch -D
 yarn add @apollo/server graphql
 npx gitignore Node
+npx prisma init
