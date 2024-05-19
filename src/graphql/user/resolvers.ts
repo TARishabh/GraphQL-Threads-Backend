@@ -1,6 +1,15 @@
 import UserService, { CreateUserPayload } from "../../services/user"
 
-const queries = {}
+const queries = {
+    getCurrentLoggedInUser: async(_:any,__:any,context: any)=>{
+        if (context && context.user){
+            const user = UserService.getUserByID(context.user.id)
+            return user
+        }
+        throw new Error('Not implemented')
+    }
+    
+}
 const mutatations = {
     createUser: async(_:any, payload:CreateUserPayload) =>{
         const res = await UserService.createUser(payload)

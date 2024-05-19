@@ -33,6 +33,15 @@ class UserService {
             }
         })
     }
+
+    public static getUserByID(id: string){
+        return prismaClient.user.findUnique({
+            where: {
+                id
+            }
+        })
+    }
+
     private static getUserEmail(email: string) {
         return prismaClient.user.findUnique({
             where: {
@@ -50,6 +59,9 @@ class UserService {
         }
         const token = JWT.sign({id:user.id, email:user.email}, JWT_SECRET)
         return token
+    }
+    public static async decodeJWTToken(token: string) {
+        return JWT.verify(token, JWT_SECRET)
     }
 }
 

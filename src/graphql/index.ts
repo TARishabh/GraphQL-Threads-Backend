@@ -4,8 +4,10 @@ import {User} from './user/index'
 export default async function startApolloServer() {
     const server = new ApolloServer({
         typeDefs: `
+        ${User.typeDefs}
             type Query {
-                hello: String
+                ${User.queries}
+                getContext: String
             }
             type Mutation {
                 ${User.mutatations}
@@ -14,6 +16,10 @@ export default async function startApolloServer() {
         resolvers: {
             Query: {
                 ...User.resolvers.queries,
+                getContext: async (_: any, __: any, context: any) => {
+                    console.log(context)
+                    return JSON.stringify(context)
+                }
             },
             Mutation: {
                 ...User.resolvers.mutatations
